@@ -57,7 +57,12 @@ class Matrix
 	// given a 3d vector, returns the corresponding scale matrix
 	static scale(vector)
 	{
-		
+		return new Float32Array([
+			vector[0], 0, 0, 0,
+			0, vector[1], 0, 0,
+			0, 0, vector[2], 0, 
+			0, 0, 0, 1
+		]);
 	}
 
 	// given two matrices (as Float32Arrays), multiplies them together and returns the result
