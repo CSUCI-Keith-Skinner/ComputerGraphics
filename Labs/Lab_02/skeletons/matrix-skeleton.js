@@ -29,14 +29,21 @@ class Matrix
 	// given a 3d vector, returns the corresponding translation matrix
 	static translation(vector)
 	{
-		
+		return new Float32Array([
+			1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			vector[0], vector[1], vector[2], 1
+		]);
 	}
 
 	// given a quaternion, returns the corresponding rotation matrix
 	// REQUIRES QUATERNIONS
 	static rotation(quat)
 	{
-		
+		return new Float32Array([
+			1-2
+		]);
 	}
 
 	// given a 3d vector, returns the corresponding scale matrix
