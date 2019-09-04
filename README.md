@@ -1,7 +1,7 @@
 
 # COARIT-464 Sec 001 - Computer Graphics I
 # ART/COMP/IT 464 
-## Computer Graphics 1 {style=text-align:center}
+## Computer Graphics 1
 ## Section 1
 ## Fall 2019
 ## Mo/We 6 PM @ SIE 1242
