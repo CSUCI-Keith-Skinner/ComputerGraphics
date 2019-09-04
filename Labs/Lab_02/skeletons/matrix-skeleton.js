@@ -18,7 +18,12 @@ class Matrix
 	// returns the identity matrix
 	static identity()
 	{
-		
+		return new Float32Array([
+			1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1
+		]);
 	}
 
 	// given a 3d vector, returns the corresponding translation matrix
