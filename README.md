@@ -11,7 +11,6 @@
 Ryan McIntyre
 Contact:
 - ryan.mcintyre466@myci.csuci.edu
-- 949 412 7767
 Office Hours: TBD
 
 ### Course Description
