@@ -65,11 +65,24 @@ class Matrix
 		]);
 	}
 
+	static p_mul(x, y, mat1, mat2) {
+		tot = 0;
+		for (int i=0; i<4; ++i) {
+			tot += mat1[i*4+y] * mat2[x*4+i];
+		}
+		return tot;	
+	}
+
 	// given two matrices (as Float32Arrays), multiplies them together and returns the result
 	// don't forget, the inputs and result are in column-major form!
 	static mul(mat1, mat2)
 	{
-		
+		result = [];
+		for (int x=0; x<4; ++x) {
+			for (int y=0; y<4; ++y) {
+				result.push(p_mul(x, y, mat1, mat2));
+			}
+		}
 	}
 
 	// given an array or list of matrices, multiplies them all (in order) and returns the result
