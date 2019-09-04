@@ -41,8 +41,16 @@ class Matrix
 	// REQUIRES QUATERNIONS
 	static rotation(quat)
 	{
+		a = quat[0];
+		b = quat[1];
+		c = quat[2];
+		d = quat[3];
+		//does this work?
 		return new Float32Array([
-			1-2
+			a*a+b*b-c*c-d*d, 2*b*c+2*a*d, 2*b*d-2*a*c, 0,
+			2*b*c-2*a*d, a*a-b*b+c*c-d*d, 2*c*d-2*a*b, 0,
+			2*b*d-2*a*c, 2*c*d+2*a*b, a*a-b*b-c*c+d*d, 0,
+			0, 0, 0, 1
 		]);
 	}
 
