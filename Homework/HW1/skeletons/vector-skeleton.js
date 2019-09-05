@@ -76,7 +76,11 @@ class Vector
 	// i.e. euclidean length or distance formula
 	magnitude()
 	{
-		return Math.sqrt(this.x*this.x + this.y*this.y, this.z*this.z);
+		return Math.sqrt(
+			  this.x*this.x
+			+ this.y*this.y
+			+ this.z*this.z
+		);
 	}
 
 	// rotates this vector by quaternion "q"
@@ -91,12 +95,13 @@ class Vector
 	// if this vectors magnitude is 0, this function should leave it as is
 	normalize(inplace=true)
 	{
+		var magnitude = this.magnitude();
 		if (!inplace) {
-			return new Vector(this.x/this.magnitude(), this.y/this.magnitude(), this.z/this.magnitude());
+			return new Vector(this.x/magnitude, this.y/magnitude, this.z/magnitude);
 		}
-		this.x /= this.magnitude();
-		this.y /= this.magnitude();
-		this.z /= this.magnitude();
+		this.x /= magnitude;
+		this.y /= magnitude;
+		this.z /= magnitude;
 		return this;
 	}
 
@@ -147,3 +152,5 @@ class Vector
 		//TODO: this
 	}
 }
+
+module.exports = Vector; 

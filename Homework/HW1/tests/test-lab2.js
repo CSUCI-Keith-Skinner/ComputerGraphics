@@ -1,4 +1,8 @@
 // VECTOR ONLY
+//import Vector from '../skeletons/vector-skeleton';
+var Vector = require("../skeletons/vector-skeleton");
+var Matrix = require("../skeletons/matrix-skeleton");
+
 console.log("Testing Vector.constructor")
 
 console.log("	Creating Vector with coords (1,2,3)");
@@ -199,7 +203,7 @@ M = Matrix.translation(v);
 console.log("	Translation matrix is:");
 console.log("	",M);
 console.log("	Translation matrix should be:");
-console.log("	",new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1]));
+console.log("	", new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 2, 3, 1]));
 
 
 console.log("Testing Matrix.scale");
