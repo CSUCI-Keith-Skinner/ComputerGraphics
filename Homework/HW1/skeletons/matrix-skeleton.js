@@ -41,7 +41,28 @@ class Matrix
 	// REQUIRES QUATERNIONS
 	static rotation(quat)
 	{
-		//TODO: this
+		//Shamelessly copied from:
+		//	https://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToMatrix/index.htm
+
+		return new Float32Array([
+			//COLUMN 1
+			1 - 2*quat[2]*quat[2] - 2*quat[3]*quat[3], 
+				2*quat[1]*quat[2] + 2*quat[3]*quat[0], 
+				2*quat[1]*quat[3] - 2*quat[2]*quat[0],
+				0,
+			//COLUMN 2
+				2*quat[1]*quat[2] - 2*quat[3]*quat[0],
+			1 - 2*quat[1]*quat[1] - 2*quat[3]*quat[3],
+				2*quat[2]*quat[3] + 2*quat[1]*quat[0],
+				0,
+			//COLUMN 3
+				2*quat[1]*quat[3] + 2*quat[2]*quat[0],
+				2*quat[2]*quat[3] - 2*quat[1]*quat[0],
+			1 - 2*quat[1]*quat[1] - 2*quat[2]*quat[2],
+				0,
+			//COLUMN 4
+				0, 0, 0, 1
+		]);
 	}
 
 	// given a 3d vector, returns the corresponding scale matrix
@@ -93,7 +114,7 @@ class Matrix
 	// returns the corresponding world matrix
 	static world(position, rotation, scale)
 	{
-		
+		return this.prod([position, rotation, scale]);
 	}
 
 	// THE MATRICES BELOW WILL BE DONE IN THE 2ND HALF OF THE SEMESTER
