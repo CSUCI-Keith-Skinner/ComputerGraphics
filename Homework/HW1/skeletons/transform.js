@@ -25,49 +25,49 @@ class Transform
 	// initiate the booleans (hasMoved, hasRotated, hasScaled, needsUpate) to false.
 	constructor (position=new Vector(), rotation=new Quaternion(), scale=new Vector(1, 1, 1))
 	{
-		//TODO: Transform.constructor (position=new Vector(), rotation=new Quaternion(), scale=new Vector(1, 1, 1))
+		//TODO:
 	}
 
 	// set this transform's position to the input vector.
 	// set the necessary booleans (hasMoved and needsUpdate) to true.
 	setPosition(vector)
 	{
-		//TODO: Transform.setPosition(vector)
+		//TODO:
 	}
 
 	// set this transform's rotation to the input quaternion.
 	// set the necessary booleans (hasRotated and needsUpdate) to true.
 	setRotation(quat)
 	{
-		//TODO: Transform.setRotation(quat)
+		//TODO:
 	}
 
 	// set this transform's scale to the input vector.
 	// set the necessary booleans (hasScaled and needsUpdate) to true.
 	setScale(scale)
 	{
-		//TODO: Transform.setScale(scale)
+		//TODO:
 	}
 
 	// translate by the input vector (i.e. add the input vector to the position)
 	// update necessary booleans...
 	translate(vector)
 	{
-		//TODO: Transform.translate(vector)
+		//TODO:
 	}
 
 	// rotate by the input quaternion (i.e. compose the input quaternion with the rotation)
 	// update necessary booleans...
 	rotate(quat)
 	{
-		//TODO: Transform.rotate(quat)
+		//TODO:
 	}
 
 	// rotate by the input quaternion in local space
 	// update necessary booleans...
 	localRotate(quat)
 	{
-		//TODO: Transform.localRotate(quat)
+		//TODO:
 	}
 
 	// rotate the position vector about the vector "point" by the input quaternion "quat"
@@ -75,42 +75,42 @@ class Transform
 	// update necessary booleans...
 	rotateAround(point, quat)
 	{
-		//TODO: Transform.rotateAround(point, quat)
+		//TODO:
 	}
 
 	// scale the x, y and z components of this transform's scale by those of the input vector
 	// update necessary booleans...
 	scaleBy(vector)
 	{
-		//TODO: Transform.scaleBy(vector)
+		//TODO:
 	}
 
 	// update mTranslate so it reflects this transform's position
 	// set hasMoved to false, as any movements have now been incorporated
 	updateTranslationMatrix()
 	{
-		//TODO: Transform.updateTranslationMatrix()
+		//TODO:
 	}
 
 	// update mRotate so it reflects the transform's rotation
 	// update necessary boolean(s)
 	updateRotationMatrix()
 	{
-		//TODO: Transform.updateRotationMatrix()
+		//TODO:
 	}
 
 	// update mScale so it reflects the transform's scale
 	// update necessary booleans...
 	updateScaleMatrix()
 	{
-		//TODO: Transform.updateScaleMatrix()
+		//TODO:
 	}
 
 	// update the world matrix to the product mTranslate * mRotate * mScale
 	// set needsUpdate to false, as all transformation changes are now incorporated
 	updateWorldMatrix()
 	{
-		//TODO: Transform.updateWorldMatrix()
+		//TODO:
 	}
 
 	// if needsUpdate is false, don't do anything; no update is needed
@@ -124,7 +124,7 @@ class Transform
 	//		  do we need to update any booleans explicitly here?
 	update()
 	{
-		//TODO: Trasform.update()
+		//TODO:
 	}
 }
 

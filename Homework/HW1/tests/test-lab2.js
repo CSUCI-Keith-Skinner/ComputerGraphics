@@ -1,7 +1,7 @@
 // VECTOR ONLY
-//import Vector from '../skeletons/vector-skeleton';
-var Vector = require("../skeletons/vector-skeleton");
-var Matrix = require("../skeletons/matrix-skeleton");
+
+var Vector = require("../skeletons/vector");
+var Matrix = require("../skeletons/matrix");
 
 console.log("Testing Vector.constructor")
 

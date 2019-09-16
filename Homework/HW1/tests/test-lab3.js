@@ -1,4 +1,9 @@
 // QUATERNION ONLY
+
+const Quaternion = require('../skeletons/quaternion');
+const Vector = require("../skeletons/vector.js");
+const Matrix = require("../skeletons/matrix.js");
+
 console.log("Testing Quaternion.constructor (normalized)");
 
 console.log("	Creating Quaternion for 120 degree rotation about x axis.");
