@@ -9,7 +9,7 @@
 //		y (numerical) : y-axis component
 //		z (numerical) : z-axis component
 
-class Quaternion
+export class Quaternion
 {
 	// "theta" is how far to turn, in radians
 	// "x y z" are the axis of rotation

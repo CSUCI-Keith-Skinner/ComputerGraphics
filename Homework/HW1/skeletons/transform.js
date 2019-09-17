@@ -17,7 +17,11 @@
 // 		hasScaled (boolean) : ...
 // 		needsUpdate (boolean) : have the position, rotation or scale changed since the world matrix was last updated?
 
-class Transform
+import { Quaternion } from './quaternion';
+import { Vector } from './vector';
+import { Matrix } from './matrix';
+
+export class Transform
 {
 	// set up a transform with the desired position, rotation and scale.
 	// calculate and store the corresponding matrices (mTranslate, mRotate, and mScale).
@@ -26,6 +30,8 @@ class Transform
 	constructor (position=new Vector(), rotation=new Quaternion(), scale=new Vector(1, 1, 1))
 	{
 		//TODO:
+		this.position = position;
+		this.rotation = 
 	}
 
 	// set this transform's position to the input vector.

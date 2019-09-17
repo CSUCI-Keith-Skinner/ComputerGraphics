@@ -13,9 +13,9 @@
 	to generate and manipulate matrices in this form.
 */
 
-const Vector = require("./vector.js");
+import { Vector } from './vector';
 
-class Matrix
+export class Matrix
 {
 	// returns the identity matrix
 	static identity()
@@ -51,19 +51,19 @@ class Matrix
 
 		return new Float32Array([
 			//COLUMN 1
-			1 - 2*quat[2]*quat[2] - 2*quat[3]*quat[3], 
-				2*quat[1]*quat[2] + 2*quat[3]*quat[0], 
-				2*quat[1]*quat[3] - 2*quat[2]*quat[0],
+			1 - 2*quat.y*quat.y - 2*quat.z*quat.z, 
+				2*quat.x*quat.y + 2*quat.z*quat.w, 
+				2*quat.x*quat.z - 2*quat.y*quat.w,
 				0,
 			//COLUMN 2
-				2*quat[1]*quat[2] - 2*quat[3]*quat[0],
-			1 - 2*quat[1]*quat[1] - 2*quat[3]*quat[3],
-				2*quat[2]*quat[3] + 2*quat[1]*quat[0],
+				2*quat.x*quat.y - 2*quat.z*quat.w,
+			1 - 2*quat.x*quat.x - 2*quat.z*quat.z,
+				2*quat.y*quat.z + 2*quat.x*quat.w,
 				0,
 			//COLUMN 3
-				2*quat[1]*quat[3] + 2*quat[2]*quat[0],
-				2*quat[2]*quat[3] - 2*quat[1]*quat[0],
-			1 - 2*quat[1]*quat[1] - 2*quat[2]*quat[2],
+				2*quat.x*quat.z + 2*quat.y*quat.w,
+				2*quat.y*quat.z - 2*quat.x*quat.w,
+			1 - 2*quat.x*quat.x - 2*quat.y*quat.y,
 				0,
 			//COLUMN 4
 				0, 0, 0, 1
@@ -122,7 +122,11 @@ class Matrix
 	static world(position, rotation, scale)
 	{
 		// TODO: done
-		return this.prod([position, rotation, scale]);
+		return this.prod([
+			Matrix.translation(position), 
+			Matrix.rotation(rotation), 
+			Matrix.scale(scale)
+		]);
 	}
 
 	// THE MATRICES BELOW WILL BE DONE IN THE 2ND HALF OF THE SEMESTER
@@ -198,10 +202,10 @@ class Matrix
 		var fpn = far+near;
 
 		return new Float32Array([
-			2/rml, 0, 0, 0,
-			0, 2/tmb, 0, 0,
-			0, 0, -2/fmn, 0,
-			-rpl/rml, -tpb/tmb, -fpn/fmn, 1
+			2/rml,     0,         0,         0,
+			0,         2/tmb,     0,         0,
+			0,         0,         -2/fmn,    0,
+			-rpl/rml,  -tpb/tmb,  -fpn/fmn,  1
 		]);
 	}
 }

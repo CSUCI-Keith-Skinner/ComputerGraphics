@@ -1,5 +1,6 @@
 const Quaternion = require('../skeletons/quaternion');
-const Vector = require("../skeletons/vector.js");
+const Vector = require("../skeletons/vector");
+const Matrix = require("../skeletons/matrix");
 
 describe('Testing Quaternion', () => {
     
@@ -119,8 +120,62 @@ describe('Testing Quaternion', () => {
         test('z should be about 0.5', () => { expect(q.z).toBeCloseTo(0.5) });
     });
 
-    describe('', () => {
-        
+    describe('Testing Quaternion.toString', () => {
+        var q = new Quaternion(Math.PI/2, 1, 0, 0);
+        describe('should be something like "Quaternion (0.707, 0.707, 0, 0)"', () => {
+            test(`Result is ${q.toString()}`, () => {});
+        });
     });
     
+    describe('Testing Quaternion.fromVector', () => {
+        var v = new Vector(0, 0, 1);
+        var q = Quaternion.fromVector(v);
+        test('w should be 0', () => { expect(q.w).toBe(0)});
+        test('x should be 0', () => { expect(q.x).toBeCloseTo(0)});
+        test('y should be 0', () => { expect(q.y).toBeCloseTo(0)});
+        test('z should be 1', () => { expect(q.z).toBeCloseTo(1)});
+    });
+
+    describe('Testing Vector.fromQuaternion', () => {
+        var q = new Quaternion();
+        q.set(0, 1, 2, 3);
+        var v = Vector.fromQuaternion(q);
+        test('x value should be 1', () => { expect(v.x).toBe(1); });
+        test('y value should be 2', () => { expect(v.y).toBe(2); });
+        test('z value should be 3', () => { expect(v.z).toBe(3); });
+    });
+
+    describe('Testing Vector.rotate (not in place)', () => {
+        var q = new Quaternion(Math.PI/2, 0, 0, 1);
+        var o = new Vector(0, 1, 0);
+        var r = o.rotate(q, false);
+        test('original x value should be 0', () => { expect(o.x).toBe(0) });
+        test('original y value should be 1', () => { expect(o.y).toBe(1) });
+        test('original z value should be 0', () => { expect(o.z).toBe(0) });
+        test('resulting x value should be about -1', () => { expect(r.x).toBeCloseTo(-1) });
+        test('resulting y value should be about 0', () => { expect(r.y).toBeCloseTo(0) });
+        test('resulting z value should be about 0', () => { expect(r.z).toBeCloseTo(0) });
+    });
+
+    describe('Testing Vector.rotate (in place) with the same rotation', () => {
+        var q = new Quaternion(Math.PI/2, 0, 0, 1);
+        var v = new Vector(0, 1, 0);
+        v.rotate(q);
+        test('x value should be about -1', () => { expect(v.x).toBeCloseTo(-1) });
+        test('y value should be about 0', () => { expect(v.y).toBeCloseTo(0) });
+        test('z value should be about 0', () => { expect(v.z).toBeCloseTo(0) });
+    });
+
+    describe('Testing Matrix.rotation', () => {
+        var q = new Quaternion(Math.PI/2, 1,2,3);
+        var a = Matrix.rotation(q);
+        var e = new Float32Array([0.0714285746216774, 0.9446408748626709, -0.32023677229881287, 0,-0.6589266061782837, 0.2857142984867096, 0.6958326697349548, 0, 0.7488082051277161, 0.16131018102169037, 0.6428571343421936, 0, 0, 0, 0, 1]);
+        test('Matrix.rotation', () => {
+            expect(a.length).toBe(e.length);
+            for (var i = 0; i < a.length; ++i) {
+                expect(a[i]).toBeCloseTo(e[i]);
+            }
+        });
+    });
+
 });

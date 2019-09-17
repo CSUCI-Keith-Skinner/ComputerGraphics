@@ -1,6 +1,5 @@
-
-const Vector = require('../skeletons/vector.js');
-const Matrix = require('../skeletons/matrix.js');
+import  Vector from '../skeletons/vector';
+import Matrix  from '../skeletons/matrix';
 
 describe ('Testing Vector', () => 
 {

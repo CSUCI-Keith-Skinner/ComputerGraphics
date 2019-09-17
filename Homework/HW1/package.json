@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "test": "jest",
     "lab2-test": "jest -- ./tests/test-lab2.test.js",
-    "lab3-test": "jest -- ./tests/test-lab3.test.js"
+    "lab3-test": "jest -- ./tests/test-lab3.test.js",
+    "hw1-test": "jest -- ./tests/test-hw1-test.js"
   },
   "author": "",
   "license": "ISC",
