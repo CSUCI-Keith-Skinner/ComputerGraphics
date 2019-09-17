@@ -119,5 +119,8 @@ describe('Testing Quaternion', () => {
         test('z should be about 0.5', () => { expect(q.z).toBeCloseTo(0.5) });
     });
 
+    describe('', () => {
+        
+    });
     
 });
