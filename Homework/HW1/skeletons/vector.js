@@ -1,4 +1,4 @@
-import { Quaternion } from './quaternion';
+import Quaternion from './quaternion';
 
 /**
  * The Vector class will be a simple 3D vector

@@ -1,29 +1,26 @@
 // QUATERNION CLASS DESCRIPTION
-/*
-	The Quaternion class will 4-component structure to represent and apply rotations.
-*/
-
-// QUATERNION CLASS FIELDS:
-//		w (numerical) : real component
-//		x (numerical) : x-axis component
-//		y (numerical) : y-axis component
-//		z (numerical) : z-axis component
-
+/**
+ * The Quaternion class will 4-component structure to represent and apply rotations.
+ */
 export class Quaternion
 {
-	// "theta" is how far to turn, in radians
-	// "x y z" are the axis of rotation
-	// "normalized" denotes whether the input axis "x y z" has been normalized already
-	// if "normalized" is false, then the constructor will need to normalize the axis
-	// should set components "this.w, this.x, this.y, this.z" as detailed in slides
+
+	/**
+	 * Create a Quaternion with an axis of rotation and an angle of rotation
+	 * @param {Number} theta angle in radians
+	 * @param {Number} x i scalar for the x-axis component 
+	 * @param {Number} y j scalar for the y-axis component
+	 * @param {Number} z k scalar for the z-axis component
+	 * @param {Number} normalized whether or not the values need to be normalized
+	 */
 	constructor(theta=0, x=1, y=0, z=0, normalized=false)
 	{
-		//TODO: done
+
 		if (!normalized) {
-			var l = Math.sqrt(x*x + y*y + z*z);
-			x /= l;
-			y /= l;
-			z /= l;
+			var len = Math.sqrt(x*x + y*y + z*z);
+			x /= len;
+			y /= len;
+			z /= len;
 		}
 
 		var half = theta/2;
@@ -34,10 +31,16 @@ export class Quaternion
 		this.z = z*s;
 	}
 
-	// sets this quaternion's components to the inputs
+	/**
+	 * sets this quaternion's components to the inputs
+	 * @param {Number} w 
+	 * @param {Number} x 
+	 * @param {Number} y 
+	 * @param {Number} z 
+	 * @todo done
+	 */
 	set(w, x, y, z)
 	{
-		//TODO: done
 		this.w = w;
 		this.x = x;
 		this.y = y;
@@ -45,9 +48,11 @@ export class Quaternion
 		return this;
 	}
 
-	// returns the inverse quaternion as detailed in slides
-	// NOTE: may assume that this quaternion is already normalized
-	// because while we may use non-normalized quaternions, we will not need to invert them!
+
+	/**
+	 * returns the inverse quaternion as detailed in slides
+	 * @note may assume that this quaternion is already normalized
+	 */
 	inverse()
 	{
 		//TODO: done
@@ -56,33 +61,34 @@ export class Quaternion
 		return ret;
 	}
 
-	// keep the w component the same
-	// scale x y and z components to normalize
-	// (i.e. to make sum of squared components, including w, equal 1)
-	// this is to ensure that floating point rounding errors don't slowly add up
-	// HINT: use the pythagorean trig identity!
+	
+	/**
+	 * scale w x y z components by  to normalize 
+	 * @note this is to ensure that floating point rounding errors don't slowly add up
+	 */
 	renormalize()
 	{
 		//TODO: done
-		var denom = Math.sqrt(this.w*this.w + this.x*this.x + this.y*this.y + this.z*this.z);
-		this.w /= denom;
-		this.x /= denom;
-		this.y /= denom;
-		this.z /= denom;
+		var length = Math.sqrt(this.w*this.w + this.x*this.x + this.y*this.y + this.z*this.z);
+		this.w /= length;
+		this.x /= length;
+		this.y /= length;
+		this.z /= length;
 		return this;
 	}
-
-	 // multiply the input quaternion "q" on the left (i.e. get q * this)
-	 // as usual, if "inplace" is true then modify this quaternion, otherwise return a new one
-	 // if "renormalize" is true, then renormalize the result
-	 // NOTE: if "inplace" is false, renormalize the NEW quaternion and NOT this one
+	
+	/**
+	 * multiply the input quaternion "q" on the left (i.e. get q * this)
+	 * @param {Quaternion} q the quaternion to continue rotating by
+	 * @param {Boolean} inplace use this or new instance
+	 * @param {Boolean} renormalize normalize the result
+	 */
 	compose(q, inplace=true, renormalize=true)
 	{
 		//TODO: done
 		var ret = this;
-		if (!inplace) {
+		if (!inplace)
 			ret = new Quaternion();
-		}
 
 		ret.set(
 			q.w*this.w - q.x*this.x - q.y*this.y - q.z*this.z, 
@@ -90,32 +96,35 @@ export class Quaternion
 			q.w*this.y - q.x*this.z + q.y*this.w + q.z*this.x, 
 			q.w*this.z + q.x*this.y - q.y*this.x + q.z*this.w
 		);
-		if (renormalize) {
+
+		if (renormalize)
 			ret.renormalize();
-		}
 
 		return ret;
 	}
 
-	// apply the rotation represented by this quaternion to the input quaternion "q"
-	// i.e. this * q * this.inverse()
-	// return the result
-	// use Quaternion.composition (static function defined below, complete it first)
-	// HINT: compose multiplies from the left, so the inputs will need to be in reverse order!
+	/**
+	 * apply the rotation represented by this quaternion to the input quaternion "q"
+	 * @param {Quaternion} q 
+	 * @note this * q * this.inverse()
+	 */
 	applyRotation(q) // this * q * this.inverse(), i.e. apply this quaternion to another
 	{
 		//TODO: done
 		return Quaternion.composition([this.inverse(), q, this]);
 	}
 
-	// rotate by quaternion "q", but in local space
-	// i.e. treat q's axis as if it is in local space
-	// rotate q's axis by this quaternion to find it in world space
-	// then compose the rotated q with this quaternion
-	// don't forget to account for "inplace"!
+	/**
+	 * rotate by quaternion "q", but in local space
+	 * treat q's axis as if it is in local space
+	 * rotate q's axis by this quaternion to find it in world space
+	 * then compose the rotated q with this quaternion
+	 * @param {Quaternion} q 
+	 * @param {Boolean} inplace 
+	 */
 	localCompose(q, inplace=true)
 	{
-		//TODO: HELP
+		//TODO: done
 		var t = this.applyRotation(q);
 		return this.compose(t, inplace);
 	}
@@ -153,6 +162,3 @@ export class Quaternion
 		return q;
 	}
 }
-
-module.exports = Quaternion;
-

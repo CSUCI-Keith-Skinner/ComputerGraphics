@@ -1,23 +1,24 @@
 // MATRIX CLASS DESCRIPTION:
-/*
-	The Matrix class will contain utilities for generating and manipulating
-	any 4x4 matrices needed for our purposes in graphics.
-
-	Resulting matrices will be represented in column-major form as 1D
-	Float32Arrays with 16 elements.
-
-	This means the first 4 elements are the 1st column, the next 4 are the
-	second column, and so on...
-
-	This class will have no fields; it will contain only static methods to
-	to generate and manipulate matrices in this form.
-*/
-
+/**
+ * The Matrix class will contain utilities for generating and manipulating
+ * any 4x4 matrices needed for our purposes in graphics.
+ * 
+ * Resulting matrices will be represented in column-major form as 1D
+ * Float32Arrays with 16 elements.
+ * 
+ * This means the first 4 elements are the 1st column, the next 4 are the
+ * second column, and so on...
+ * 
+ * This class will have no fields; it will contain only static methods to
+ * to generate and manipulate matrices in this form.
+ */
 import { Vector } from './vector';
 
 export class Matrix
 {
-	// returns the identity matrix
+	/**
+	 * @returns {Float32Array[16]} the identity matrix
+	 */
 	static identity()
 	{
 		// TODO: done
@@ -29,7 +30,10 @@ export class Matrix
 		]);
 	}
 
-	// given a 3d vector, returns the corresponding translation matrix
+	/**
+	 * @param {Vector} vector translate by this vector
+	 * @returns {Float32Array[16]} returns the corresponding translation matrix
+	 */
 	static translation(vector)
 	{
 		// TODO: done
@@ -41,8 +45,11 @@ export class Matrix
 		]);
 	}
 
-	// given a quaternion, returns the corresponding rotation matrix
-	// REQUIRES QUATERNIONS
+	/**
+	 * @note REQUIRES QUATERNIONS
+	 * @param {Quaternion} quat 
+	 * @returns {Float32Array[16]} returns the corresponding rotation matrix
+	 */
 	static rotation(quat)
 	{
 		//TODO: done
@@ -70,7 +77,10 @@ export class Matrix
 		]);
 	}
 
-	// given a 3d vector, returns the corresponding scale matrix
+	/**
+	 * @param {Vector} vector amount to scale each axis
+	 * @returns {Float32Array[16]} returns the corresponding scale matrix
+	 */
 	static scale(vector)
 	{
 		// TODO: done
@@ -82,8 +92,13 @@ export class Matrix
 		]);
 	}
 
-	// given two matrices (as Float32Arrays), multiplies them together and returns the result
-	// don't forget, the inputs and result are in column-major form!
+	/**
+	 * multiplies the matrices together and returns the result
+	 * @note Column major form
+	 * @param {Float32Array} mat1 
+	 * @param {Float32Array} mat2 
+	 * @returns {Float32Array}
+	 */
 	static mul(mat1, mat2)
 	{
 		// TODO: done
@@ -103,7 +118,11 @@ export class Matrix
 		return new Float32Array(result);
 	}
 
-	// given an array or list of matrices, multiplies them all (in order) and returns the result
+	/**
+	 * multiplies all the matrices (in order) and returns the result
+	 * @param {Array<Float32Array[16]>} mats array of matrices
+	 * @returns {Float32Array[16]}
+	 */
 	static prod(mats)
 	{
 		// TODO: done
@@ -117,8 +136,14 @@ export class Matrix
 		return result;
 	}
 
-	// given a position (vector), rotation (quaternion) and scale (vector)
-	// returns the corresponding world matrix
+	/**
+	 * given a position (vector), rotation (quaternion) and scale (vector)
+	 * returns the corresponding world matrix
+	 * @param {Vector} position 
+	 * @param {Quaternion} rotation 
+	 * @param {Vector} scale 
+	 * @returns {Float32Array[16]}
+	 */
 	static world(position, rotation, scale)
 	{
 		// TODO: done
@@ -129,12 +154,16 @@ export class Matrix
 		]);
 	}
 
-	// THE MATRICES BELOW WILL BE DONE IN THE 2ND HALF OF THE SEMESTER
-	// but feel free to do some research to do them early!
-
 	// takes 3 vectors, eye target and up
 	// returns the view matrix for an object at position "eye", looking at "target"
 	// with local upward direction "up"
+	/**
+	 * 
+	 * @param {} eye the matrix for the position
+	 * @param {} target the matrix for what the eye is looking at
+	 * @param {} up the upward direction
+	 * @returns returns the view matrix
+	 */
 	static view(eye, target, up)
 	{
 		// TODO: done

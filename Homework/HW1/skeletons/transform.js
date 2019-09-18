@@ -17,9 +17,9 @@
 // 		hasScaled (boolean) : ...
 // 		needsUpdate (boolean) : have the position, rotation or scale changed since the world matrix was last updated?
 
-import { Quaternion } from './quaternion';
-import { Vector } from './vector';
-import { Matrix } from './matrix';
+import Quaternion from './quaternion';
+import Vector from './vector';
+import Matrix from './matrix';
 
 export class Transform
 {
@@ -29,23 +29,36 @@ export class Transform
 	// initiate the booleans (hasMoved, hasRotated, hasScaled, needsUpate) to false.
 	constructor (position=new Vector(), rotation=new Quaternion(), scale=new Vector(1, 1, 1))
 	{
-		//TODO:
+		//TODO: Done
 		this.position = position;
-		this.rotation = 
+		this.rotation = rotation;
+		this.scale = scale;
+		this.updateTranslationMatrix()
+			.updateRotationMatrix()
+			.updateScaleMatrix()
+			.updateWorldMatrix();
 	}
 
 	// set this transform's position to the input vector.
 	// set the necessary booleans (hasMoved and needsUpdate) to true.
 	setPosition(vector)
 	{
-		//TODO:
+		//TODO: Done
+		this.position = vector;
+		this.hasMoved = true;
+		this.needsUpdate = true;
+		return this;
 	}
 
 	// set this transform's rotation to the input quaternion.
 	// set the necessary booleans (hasRotated and needsUpdate) to true.
 	setRotation(quat)
 	{
-		//TODO:
+		//TODO: Done
+		this.rotation = quat;
+		this.hasRotated = true;
+		this.needsUpdate = true;
+		return this;
 	}
 
 	// set this transform's scale to the input vector.
@@ -53,27 +66,34 @@ export class Transform
 	setScale(scale)
 	{
 		//TODO:
+		this.scale = scale;
+		this.hasScaled = true;
+		this.needsUpdate = true;
+		return this;
 	}
 
 	// translate by the input vector (i.e. add the input vector to the position)
 	// update necessary booleans...
 	translate(vector)
 	{
-		//TODO:
+		//TODO: done
+		return this.setPosition(this.position.add(vector, false));
 	}
 
 	// rotate by the input quaternion (i.e. compose the input quaternion with the rotation)
 	// update necessary booleans...
 	rotate(quat)
 	{
-		//TODO:
+		//TODO: done
+		return this.setRotation(this.rotation.compose());
 	}
 
 	// rotate by the input quaternion in local space
 	// update necessary booleans...
 	localRotate(quat)
 	{
-		//TODO:
+		//TODO: done
+		return this.setRotation(this.rotation.localRotate(quat));
 	}
 
 	// rotate the position vector about the vector "point" by the input quaternion "quat"
@@ -82,41 +102,55 @@ export class Transform
 	rotateAround(point, quat)
 	{
 		//TODO:
+		
 	}
 
 	// scale the x, y and z components of this transform's scale by those of the input vector
 	// update necessary booleans...
 	scaleBy(vector)
 	{
-		//TODO:
+		//TODO: done
+		return this.scale.scale(vector);
 	}
 
 	// update mTranslate so it reflects this transform's position
 	// set hasMoved to false, as any movements have now been incorporated
 	updateTranslationMatrix()
 	{
-		//TODO:
+		//TODO: done
+		this.mTranslate = Matrix.translation(this.position);
+		this.hasMoved = false;
+		return this;
 	}
 
 	// update mRotate so it reflects the transform's rotation
 	// update necessary boolean(s)
 	updateRotationMatrix()
 	{
-		//TODO:
+		//TODO: done
+		this.mRotate = Matrix.rotation(this.rotation);
+		this.hasRotated = false;
+		return this;
 	}
 
 	// update mScale so it reflects the transform's scale
 	// update necessary booleans...
 	updateScaleMatrix()
 	{
-		//TODO:
+		//TODO: done
+		this.mScale = Matrix.scale(this.scale);
+		this.hasScaled = false;
+		return this;
 	}
 
 	// update the world matrix to the product mTranslate * mRotate * mScale
 	// set needsUpdate to false, as all transformation changes are now incorporated
 	updateWorldMatrix()
 	{
-		//TODO:
+		//TODO: done
+		this.mWorld = Matrix.world(this.position, this.rotation, this.scale);
+		this.needsUpdate = false;
+		return this;
 	}
 
 	// if needsUpdate is false, don't do anything; no update is needed
@@ -130,8 +164,15 @@ export class Transform
 	//		  do we need to update any booleans explicitly here?
 	update()
 	{
-		//TODO:
+		//TODO: done
+		if (!this.needsUpdate)
+			return this;
+		if (this.hasMoved)
+			this.updateTranslationMatrix();
+		if (this.hasRotated)
+			this.updateRotationMatrix();
+		if (this.hasScaled)
+			this.updateScaleMatrix();
+		return this.updateWorldMatrix();
 	}
 }
-
-module.exports = Transform;
