@@ -1,7 +1,6 @@
 // VECTOR ONLY
-
-var Vector = require("../skeletons/vector");
-var Matrix = require("../skeletons/matrix");
+const Vector = require('vector');
+const Matrix = require('matrix');
 
 console.log("Testing Vector.constructor")
 

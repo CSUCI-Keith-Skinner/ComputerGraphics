@@ -1,5 +1,5 @@
-import  Vector from '../skeletons/vector';
-import Matrix  from '../skeletons/matrix';
+const Vector = require('vector');
+const Matrix = require('matrix');
 
 describe ('Testing Vector', () => 
 {

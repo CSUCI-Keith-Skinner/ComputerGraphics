@@ -12,9 +12,9 @@
  * This class will have no fields; it will contain only static methods to
  * to generate and manipulate matrices in this form.
  */
-import { Vector } from './vector';
-
-export class Matrix
+const Vector = require('vector');
+module.exports = Matrix;
+class Matrix
 {
 	/**
 	 * @returns {Float32Array[16]} the identity matrix
@@ -238,5 +238,3 @@ export class Matrix
 		]);
 	}
 }
-
-module.exports = Matrix;

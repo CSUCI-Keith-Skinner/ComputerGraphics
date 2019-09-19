@@ -1,8 +1,8 @@
 // QUATERNION ONLY
 
 const Quaternion = require('../skeletons/quaternion');
-const Vector = require("../skeletons/vector.js");
-const Matrix = require("../skeletons/matrix.js");
+const Vector = require("../skeletons/vector");
+const Matrix = require("../skeletons/matrix");
 
 console.log("Testing Quaternion.constructor (normalized)");
 

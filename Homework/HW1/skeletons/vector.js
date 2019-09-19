@@ -1,8 +1,9 @@
-import Quaternion from './quaternion';
-
 /**
  * The Vector class will be a simple 3D vector
  */
+const Vector = require('vector');
+const Quaternion = require('quaternion');
+module.exports = Vector;
 export class Vector
 {
 	/**
