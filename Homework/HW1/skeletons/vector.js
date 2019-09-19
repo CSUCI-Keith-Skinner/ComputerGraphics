@@ -1,9 +1,8 @@
 /**
  * The Vector class will be a simple 3D vector
  */
-const Vector = require('vector');
-const Quaternion = require('quaternion');
-module.exports = Vector;
+const Quaternion = require('./quaternion');
+const Matrix = require('./matrix');
 class Vector
 {
 	/**
@@ -211,3 +210,4 @@ class Vector
 		return new Vector(q.x, q.y, q.z);
 	}
 }
+module.exports = Vector;

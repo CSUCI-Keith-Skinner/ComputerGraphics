@@ -1,10 +1,9 @@
-const Vector = require('vector');
-const Matrix = require('matrix');
-module.exports = Quaternion;
 /**
  * The Quaternion class will 4-component structure to represent and apply rotations.
  */
-class Quaternion
+const Vector = require('./vector');
+const Matrix = require('./matrix');
+ class Quaternion
 {
 
 	/**
@@ -164,3 +163,4 @@ class Quaternion
 		return q;
 	}
 }
+module.exports = Quaternion;

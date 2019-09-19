@@ -17,10 +17,9 @@
 // 		hasScaled (boolean) : ...
 // 		needsUpdate (boolean) : have the position, rotation or scale changed since the world matrix was last updated?
 
-const Vector = require('vector');
-const Matrix = require('matrix');
-const Quaternion = require('quaternion');
-module.exports = Transform;
+const Vector = require('./vector');
+const Matrix = require('./matrix');
+const Quaternion = require('./quaternion');
 class Transform
 {
 	// set up a transform with the desired position, rotation and scale.
@@ -176,3 +175,4 @@ class Transform
 		return this.updateWorldMatrix();
 	}
 }
+module.exports = Transform;

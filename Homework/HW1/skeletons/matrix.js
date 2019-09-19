@@ -12,8 +12,7 @@
  * This class will have no fields; it will contain only static methods to
  * to generate and manipulate matrices in this form.
  */
-const Vector = require('vector');
-module.exports = Matrix;
+const Vector = require('./vector');
 class Matrix
 {
 	/**
@@ -238,3 +237,4 @@ class Matrix
 		]);
 	}
 }
+module.exports = Matrix;
