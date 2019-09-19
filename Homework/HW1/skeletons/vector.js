@@ -4,7 +4,7 @@
 const Vector = require('vector');
 const Quaternion = require('quaternion');
 module.exports = Vector;
-export class Vector
+class Vector
 {
 	/**
 	 * VECTOR CLASS FIELDS
