@@ -1,5 +1,5 @@
-const Vector = require('vector');
-const Matrix = require('matrix');
+const Vector = require('../skeletons/vector');
+const Matrix = require('../skeletons/matrix');
 
 describe ('Testing Vector', () => 
 {
