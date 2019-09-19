@@ -83,6 +83,7 @@ const Matrix = require('./matrix');
 	 * @param {Quaternion} q the quaternion to continue rotating by
 	 * @param {Boolean} inplace use this or new instance
 	 * @param {Boolean} renormalize normalize the result
+	 * @returns {Quaternion}
 	 */
 	compose(q, inplace=true, renormalize=true)
 	{

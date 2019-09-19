@@ -1,6 +1,7 @@
 // TRANSFORM
-const Vector = require('vector');
-const Quaternion = require('quaternion');
+const Vector = require('../skeletons/vector');
+const Quaternion = require('../skeletons/quaternion');
+const Transform = require('../skeletons/transform');
 
 console.log("Testing Transform.constructor with default values");
 

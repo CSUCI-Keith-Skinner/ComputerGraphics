@@ -84,7 +84,7 @@ class Transform
 	rotate(quat)
 	{
 		//TODO: done
-		return this.setRotation(this.rotation.compose());
+		return this.setRotation(this.rotation.compose(quat));
 	}
 
 	// rotate by the input quaternion in local space
@@ -92,7 +92,7 @@ class Transform
 	localRotate(quat)
 	{
 		//TODO: done
-		return this.setRotation(this.rotation.localRotate(quat));
+		return this.setRotation(this.rotation.localCompose(quat));
 	}
 
 	// rotate the position vector about the vector "point" by the input quaternion "quat"
