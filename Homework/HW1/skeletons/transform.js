@@ -64,7 +64,7 @@ class Transform
 	// set the necessary booleans (hasScaled and needsUpdate) to true.
 	setScale(scale)
 	{
-		//TODO:
+		//TODO: done
 		this.scale = scale;
 		this.hasScaled = true;
 		this.needsUpdate = true;
@@ -101,6 +101,12 @@ class Transform
 	rotateAround(point, quat)
 	{
 		//TODO:
+		this.rotation.compose(quat, true);
+		this.position.subtract(point, true);
+		this.position.rotate(quat, true);
+		this.hasRotated;
+		this.hasMoved;
+		this.needsUpdate;
 		
 	}
 

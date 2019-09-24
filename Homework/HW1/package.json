@@ -9,13 +9,20 @@
   },
   "scripts": {
     "test": "jest",
-    "lab2-test": "jest -- ./tests/test-lab2.test.js",
+    "lab2-test": "jest -- ./tests/test-lab2.js",
     "lab3-test": "jest -- ./tests/test-lab3.test.js",
-    "hw1-test": "jest -- ./tests/test-hw1.test.js"
+    "test-hw1": "jest -- ./tests/test-hw1.test.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "jest": "^24.9.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)",
+      "**/?(*.)js"
+    ]
   }
 }

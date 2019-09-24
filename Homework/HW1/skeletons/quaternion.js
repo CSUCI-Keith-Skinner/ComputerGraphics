@@ -136,7 +136,7 @@ const Matrix = require('./matrix');
 	toString()
 	{
 		//TODO: done
-		return `Quaternion(${this.w},  ${this.x}, ${this.y}, ${this.z})`;
+		return `Quaternion(${this.w}, ${this.x}, ${this.y}, ${this.z})`;
 	}
 
 	// input vector "v"
