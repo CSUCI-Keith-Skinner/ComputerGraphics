@@ -1,5 +1,11 @@
-var RunDemo = function (filemap)
-{
+import Quaternion from './core/quaternion.js';
+import RGBMesh from './mesh/rgbmesh.js';
+import Vector from './core/vector.js';
+import Mesh from './mesh/mesh.js';
+import { createProgram } from './utils/shaderUtils.js';
+import { resourceImporter } from './utils/importUtils.js'
+
+var RunDemo = function (filemap) {
 	console.log("Initializing Demo");
 
 	// get canvas, set dimensions to fill browser window
@@ -10,8 +16,7 @@ var RunDemo = function (filemap)
 	// get WebGL context, confirm...
 	var gl = canvas.getContext('webgl');
 
-	if (!gl)
-	{
+	if (!gl) {
 		console.log('Browser is using experimental webgl.');
 		gl = canvas.getContext('experimental-webgl');
 	}
@@ -32,16 +37,16 @@ var RunDemo = function (filemap)
 
 	// create shader program
 	var rgbProgram = createProgram(
-		gl, 
+		gl,
 		filemap['rgbVertexShaderText'],
 		filemap['rgbFragShaderText']
 	);
 
 	// set up view matrix
 	var viewMatrix = new Float32Array(16);
-	var cameraPosition = [0,10,-10];
-	var lookAtPosition = [0,0,0];
-	var cameraUpDirection = [0,1,0];
+	var cameraPosition = [0, 10, -10];
+	var lookAtPosition = [0, 0, 0];
+	var cameraUpDirection = [0, 1, 0];
 	mat4.lookAt(
 		viewMatrix,       // target matrix to apply values to
 		cameraPosition,   // where is the camera
@@ -87,9 +92,9 @@ var RunDemo = function (filemap)
 	var cubePositionArray = [
 		// top			
 		-0.5, 0.5, -0.5,
-		0.5, 0.5, -0.5, 
-		0.5, 0.5, 0.5,  
-		-0.5, 0.5, 0.5, 
+		0.5, 0.5, -0.5,
+		0.5, 0.5, 0.5,
+		-0.5, 0.5, 0.5,
 		// bottom
 		-0.5, -0.5, -0.5,
 		-0.5, -0.5, 0.5,
@@ -97,23 +102,23 @@ var RunDemo = function (filemap)
 		0.5, -0.5, -0.5,
 		// right
 		-0.5, -0.5, -0.5,
-		-0.5, 0.5, -0.5, 
-		-0.5, 0.5, 0.5,		 
-		-0.5, -0.5, 0.5, 
+		-0.5, 0.5, -0.5,
+		-0.5, 0.5, 0.5,
+		-0.5, -0.5, 0.5,
 		// left
 		0.5, -0.5, -0.5,
-		0.5, -0.5, 0.5, 
-		0.5, 0.5, 0.5,		 
-		0.5, 0.5, -0.5, 
+		0.5, -0.5, 0.5,
+		0.5, 0.5, 0.5,
+		0.5, 0.5, -0.5,
 		// back
 		-0.5, -0.5, -0.5,
 		0.5, -0.5, -0.5,
-		0.5, 0.5, -0.5, 
+		0.5, 0.5, -0.5,
 		-0.5, 0.5, -0.5,
 		// front
 		-0.5, -0.5, 0.5,
-		-0.5, 0.5, 0.5, 
-		0.5, 0.5, 0.5, 		
+		-0.5, 0.5, 0.5,
+		0.5, 0.5, 0.5,
 		0.5, -0.5, 0.5
 	];
 
@@ -146,9 +151,9 @@ var RunDemo = function (filemap)
 		cubeIndexArray // index array
 	);
 
-	meshCube.translate(new Vector(5,0,0));
+	meshCube.translate(new Vector(5, 0, 0));
 
-	var cubeNormalArray = [	
+	var cubeNormalArray = [
 		0, 1, 0,
 		0, 1, 0,
 		0, 1, 0,
@@ -186,7 +191,7 @@ var RunDemo = function (filemap)
 		0.0, 1.0, 0.0,
 		0.0, 1.0, 0.0,
 		0.0, 1.0, 0.0,
-		
+
 		0.0, 1.0, 0.0,
 		0.0, 1.0, 0.0,
 		0.0, 1.0, 0.0,
@@ -194,22 +199,22 @@ var RunDemo = function (filemap)
 		// left / right is red
 		1.0, 0.0, 0.0,
 		1.0, 0.0, 0.0,
- 		1.0, 0.0, 0.0,
-		1.0, 0.0, 0.0,
-		
 		1.0, 0.0, 0.0,
 		1.0, 0.0, 0.0,
- 		1.0, 0.0, 0.0,
+
+		1.0, 0.0, 0.0,
+		1.0, 0.0, 0.0,
+		1.0, 0.0, 0.0,
 		1.0, 0.0, 0.0,
 		// front / back is blue
 		0.0, 0.0, 1.0,
 		0.0, 0.0, 1.0,
- 		0.0, 0.0, 1.0,
+		0.0, 0.0, 1.0,
 		0.0, 0.0, 1.0,
 
 		0.0, 0.0, 1.0,
 		0.0, 0.0, 1.0,
- 		0.0, 0.0, 1.0,
+		0.0, 0.0, 1.0,
 		0.0, 0.0, 1.0
 	];
 
@@ -222,15 +227,14 @@ var RunDemo = function (filemap)
 		cubeColorArray
 	);
 
-	rgbCube.translate(new Vector(-5,0,0));
+	rgbCube.translate(new Vector(-5, 0, 0));
 
 	var angle = Math.PI / 100;
 	var origin = new Vector();
-	var orbit = new Quaternion(angle/2, 0, 1, 0);
-	var localRot = new Quaternion(4*angle, 0, 0, 1);
+	var orbit = new Quaternion(angle / 2, 0, 1, 0);
+	var localRot = new Quaternion(4 * angle, 0, 0, 1);
 
-	var main = function()
-	{
+	var main = function () {
 		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
 		meshCube.rotateAround(origin, orbit);
@@ -245,8 +249,7 @@ var RunDemo = function (filemap)
 	requestAnimationFrame(main);
 }
 
-var InitDemo = function()
-{
+var InitDemo = function () {
 	// locations of imported files
 	var urls = [
 		'/shaders/vert.rgb.glsl',
@@ -270,4 +273,8 @@ var InitDemo = function()
 		to new importer
 	*/
 	var importer = new resourceImporter(urls, names, types, RunDemo);
+}
+
+window.onload = function() {
+	InitDemo();
 }

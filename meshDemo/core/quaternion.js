@@ -1,4 +1,5 @@
-class Quaternion
+import Vector from './vector.js';
+export default class Quaternion
 {
 	constructor(theta=0, x=1, y=0, z=0, normalized=false)
 	{
@@ -79,7 +80,7 @@ class Quaternion
 		}
 		else
 		{
-			var q2 = this.compose(q, false);
+			q2 = this.compose(q, false);
 			q2.renormalize();
 			return q2;
 		}	

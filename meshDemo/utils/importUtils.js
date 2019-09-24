@@ -1,4 +1,4 @@
-var loadTextResource = function(url, callback, importer)
+export var loadTextResource = function(url, callback, importer)
 {
 	var request = new XMLHttpRequest();
 	request.open('GET', url, true);
@@ -12,7 +12,7 @@ var loadTextResource = function(url, callback, importer)
 	request.send();
 };
 
-var loadJSONResource = function (url, callback, importer)
+export var loadJSONResource = function (url, callback, importer)
 {
 	loadTextResource(url, function(err, result, importer) {
 		if (err)
@@ -33,7 +33,7 @@ var loadJSONResource = function (url, callback, importer)
 	}, importer);
 }
 
-class resourceImporter
+export class resourceImporter
 {
 	constructor(urls, names, types, onLoad)
 	{
@@ -87,12 +87,12 @@ class resourceImporter
 	}
 }
 
-var JSONToMesh = function(modelJSON, imageID, gl, program, flipTexture)
-{
-	var positionArray = modelJSON.meshes[0].vertices;
-	var texCoordArray = modelJSON.meshes[0].texturecoords[0];
-	var normalArray = modelJSON.meshes[0].normals;
-	var indexArray = [].concat.apply([], modelJSON.meshes[0].faces);
+// export var JSONToMesh = function(modelJSON, imageID, gl, program, flipTexture)
+// {
+// 	var positionArray = modelJSON.meshes[0].vertices;
+// 	var texCoordArray = modelJSON.meshes[0].texturecoords[0];
+// 	var normalArray = modelJSON.meshes[0].normals;
+// 	var indexArray = [].concat.apply([], modelJSON.meshes[0].faces);
 
-	return new UVMesh(gl, program, positionArray, indexArray, normalArray, texCoordArray, imageID, flipTexture);
-}
+// 	return new UVMesh(gl, program, positionArray, indexArray, normalArray, texCoordArray, imageID, flipTexture);
+// }

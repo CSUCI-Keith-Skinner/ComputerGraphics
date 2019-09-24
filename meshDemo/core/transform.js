@@ -1,4 +1,8 @@
-class Transform
+import Vector from './vector.js';
+import Quaternion from './quaternion.js';
+import Matrix from './matrix.js';
+
+export default class Transform
 {
 	constructor (position=new Vector(), rotation=new Quaternion(), scale=new Vector(1, 1, 1))
 	{

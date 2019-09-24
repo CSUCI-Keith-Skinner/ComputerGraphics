@@ -1,4 +1,4 @@
-var createVertexShader = function (gl, inputText)
+export var createVertexShader = function (gl, inputText)
 {
 	var shader = gl.createShader(gl.VERTEX_SHADER);
 	gl.shaderSource(shader, inputText);
@@ -11,7 +11,7 @@ var createVertexShader = function (gl, inputText)
 	return shader;
 }
 
-var createFragmentShader = function(gl, inputText)
+export var createFragmentShader = function(gl, inputText)
 {
 	var shader = gl.createShader(gl.FRAGMENT_SHADER);
 	gl.shaderSource(shader, inputText);
@@ -24,7 +24,7 @@ var createFragmentShader = function(gl, inputText)
 	return shader;
 }
 
-var createProgram = function(gl, vertexShaderText, fragmentShaderText)
+export var createProgram = function(gl, vertexShaderText, fragmentShaderText)
 {
 	var vertexShader = createVertexShader(gl, vertexShaderText);
 	var fragmentShader = createFragmentShader(gl, fragmentShaderText);
