@@ -46,6 +46,7 @@ var RunDemo = function (filemap) {
 	var cameraPosition = [0, 10, -10];
 	var lookAtPosition = [0, 0, 0];
 	var cameraUpDirection = [0, 1, 0];
+	// eslint-disable-next-line no-undef
 	mat4.lookAt(
 		viewMatrix,       // target matrix to apply values to
 		cameraPosition,   // where is the camera
@@ -64,6 +65,7 @@ var RunDemo = function (filemap) {
 	var aspect = canvas.width / canvas.height;
 	var near = 0.01;
 	var far = 1000.0;
+	// eslint-disable-next-line no-undef
 	mat4.perspective(
 		projMatrix,  // target matrix
 		fieldOfView, // vertical field of view, in radians
