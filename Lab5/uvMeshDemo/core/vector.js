@@ -1,3 +1,6 @@
+import Quaternion from "./quaternion.js"
+
+export default
 class Vector
 {
 	constructor (x=0, y=0, z=0)

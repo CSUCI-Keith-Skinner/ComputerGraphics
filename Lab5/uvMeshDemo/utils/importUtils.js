@@ -1,3 +1,4 @@
+export
 var loadTextResource = function(url, callback, importer)
 {
 	var request = new XMLHttpRequest();
@@ -12,6 +13,7 @@ var loadTextResource = function(url, callback, importer)
 	request.send();
 };
 
+export
 var loadJSONResource = function (url, callback, importer)
 {
 	loadTextResource(url, function(err, result, importer) {
@@ -33,6 +35,7 @@ var loadJSONResource = function (url, callback, importer)
 	}, importer);
 }
 
+export
 class resourceImporter
 {
 	constructor(urls, names, types, onLoad)
@@ -87,6 +90,7 @@ class resourceImporter
 	}
 }
 
+export
 var JSONToMesh = function(modelJSON, imageID, gl, program, flipTexture)
 {
 	var positionArray = modelJSON.meshes[0].vertices;

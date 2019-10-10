@@ -1,3 +1,6 @@
+import Mesh from "./mesh.js";
+
+export default
 class RGBMesh extends Mesh
 {
 	constructor(gl, program, positionArray, indexArray, normalArray, colorArray, position=new Vector(), rotation=new Quaternion(), scale=new Vector(1,1,1))

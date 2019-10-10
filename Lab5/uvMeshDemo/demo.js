@@ -1,42 +1,9 @@
-/*var vertShaderText = [
-'precision mediump float;',
-'attribute vec3 vertPosition;',
-'attribute vec2 vertTexCoord;',
-'attribute vec3 vertNormal;',
-'varying vec3 fragPosition;',
-'varying vec2 fragTexCoord;',
-'varying vec3 fragNormal;',
-'uniform mat4 mWorld;',
-'uniform mat4 mView;',
-'uniform mat4 mProj;',
-'void main()',
-'{',
-'	fragPosition = (mWorld * vec4(vertPosition, 1.0)).xyz;',
-'	fragTexCoord = vertTexCoord;',
-'	fragNormal = (mWorld * vec4(vertNormal, 0.0)).xyz;',
-'	gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);',
-'}'
-].join('\n');
+import { Cube, Sphere } from "./mesh/shapes.js";
+import Quaternion from './core/quaternion.js';
+import Vector from './core/vector.js';
+import { createProgram } from './utils/shaderUtils.js';
+import { resourceImporter } from './utils/importUtils.js'
 
-var fragShaderText = [
-'precision mediump float;',
-'varying vec3 fragPosition;',
-'varying vec3 fragNormal;',
-'varying vec2 fragTexCoord;',
-'uniform sampler2D sampler;',
-'uniform vec3 ambientLight;',
-'uniform vec3 lightDirection;',
-'uniform vec3 lightIntensity;',
-'void main()',
-'{',
-'	vec4 texel = texture2D(sampler, fragTexCoord);',
-'	vec3 light = ambientLight + lightIntensity * max( -dot( fragNormal,normalize(lightDirection) ), 0.0);',
-'	gl_FragColor = vec4(texel.rgb * light, texel.a);',
-'}'
-].join('\n');
-
-var filemap = {'uvVertexShaderText' : vertShaderText,
-			   'uvFragShaderText' : fragShaderText};*/
 
 var RunDemo = function (filemap)
 {
@@ -159,156 +126,22 @@ var RunDemo = function (filemap)
 		Cube.create (start by copying your cube class from the previous
 		lab into shapes.js, then edit it to work for UV mesh as well!)
 	*/
-	// set up position and index arrays for a cube
-	var cubePositionArray = [
-		// top			
-		-0.5, 0.5, -0.5,
-		0.5, 0.5, -0.5, 
-		0.5, 0.5, 0.5,  
-		-0.5, 0.5, 0.5, 
-		// bottom
-		-0.5, -0.5, -0.5,
-		-0.5, -0.5, 0.5,
-		0.5, -0.5, 0.5,
-		0.5, -0.5, -0.5,
-		// right
-		-0.5, -0.5, -0.5,
-		-0.5, 0.5, -0.5, 
-		-0.5, 0.5, 0.5,		 
-		-0.5, -0.5, 0.5, 
-		// left
-		0.5, -0.5, -0.5,
-		0.5, -0.5, 0.5, 
-		0.5, 0.5, 0.5,		 
-		0.5, 0.5, -0.5, 
-		// back
-		-0.5, -0.5, -0.5,
-		0.5, -0.5, -0.5,
-		0.5, 0.5, -0.5, 
-		-0.5, 0.5, -0.5,
-		// front
-		-0.5, -0.5, 0.5,
-		-0.5, 0.5, 0.5, 
-		0.5, 0.5, 0.5, 		
-		0.5, -0.5, 0.5
-	];
-
-	var cubeIndexArray = [
-		// top
-		0, 2, 1,
-		0, 3, 2,
-		// bottom
-		4, 6, 5,
-		4, 7, 6,
-		// right
-		8, 10, 9,
-		8, 11, 10,
-		// left
-		12, 14, 13,
-		12, 15, 14,
-		// back
-		16, 18, 17,
-		16, 19, 18,
-		// front
-		20, 22, 21,
-		20, 23, 22
-	];
-
-	var cubeNormalArray = [	
-		0, 1, 0,
-		0, 1, 0,
-		0, 1, 0,
-		0, 1, 0,
-
-		0, -1, 0,
-		0, -1, 0,
-		0, -1, 0,
-		0, -1, 0,
-
-		-1, 0, 0,
-		-1, 0, 0,
-		-1, 0, 0,
-		-1, 0, 0,
-
-		1, 0, 0,
-		1, 0, 0,
-		1, 0, 0,
-		1, 0, 0,
-
-		0, 0, -1,
-		0, 0, -1,
-		0, 0, -1,
-		0, 0, -1,
-
-		0, 0, 1,
-		0, 0, 1,
-		0, 0, 1,
-		0, 0, 1
-	];
-
-	var cubeUVArray = [
-		// top
-		0, 1,
-		1, 1,
-		1, 0,
-		0, 0,
-		// bottom
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		// right
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		// left
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		// back
-		1, 0,
-		0, 0,
-		0, 1,
-		1, 1,
-		// front
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0
-	];
+	
+	
 
 	// create cube using Mesh class
-	var uvCube1 = new UVMesh(
-		gl,
-		uvProgram,
-		cubePositionArray,
-		cubeIndexArray,
-		cubeNormalArray,
-		cubeUVArray,
-		'radioactive-crate',
-		false
-	);
+	var uvCube = Cube.createUV(gl, uvProgram, 'radioactive-crate', false);
+	var rgbCube = Cube.createRGB(gl, rgbProgram, [0.2, 0.8, 0.2]);
 
-	var uvCube2 = new UVMesh(
-		gl,
-		uvProgram,
-		cubePositionArray,
-		cubeIndexArray,
-		cubeNormalArray,
-		cubeUVArray,
-		'radioactive-crate',
-		false
-	);
+	var rgbSphere = Sphere.createRGB(gl, rgbProgram, [0.5, 0.8, 1.0]);
+	var uvSphere = Sphere.createUV(gl, uvProgram, 'mint', false);
 
-
-	uvCube1.translate(new Vector(5,0,0));
-	uvCube2.translate(new Vector(-5,0,0));
+	uvCube.translate(new Vector(5,0,0));
+	rgbCube.translate(new Vector(-5,0,0));
 
 	/* uncomment the two lines below once you've created the spheres*/
-	// rgbSphere.translate(new Vector(0,0,5));
-	// uvSphere.translate(new Vector(0,0,-5));
+	rgbSphere.translate(new Vector(0,0,5));
+	uvSphere.translate(new Vector(0,0,-5));
 
 	var angle = Math.PI / 100;
 	var origin = new Vector();
@@ -319,27 +152,28 @@ var RunDemo = function (filemap)
 	{
 		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 
-		uvCube1.rotateAround(origin, orbit);
-		uvCube1.localRotate(localRot);
-		uvCube1.draw();
+		uvCube.rotateAround(origin, orbit);
+		uvCube.localRotate(localRot);
+		uvCube.draw();
 
-		uvCube2.localRotate(localRot);
-		uvCube2.rotateAround(origin, orbit);
-		uvCube2.draw();
+		rgbCube.localRotate(localRot);
+		rgbCube.rotateAround(origin, orbit);
+		rgbCube.draw();
 
 		/* uncomment the six lines below once you've created the spheres */
-		// rgbSphere.localRotate(localRot);
-		// rgbSphere.rotateAround(origin, orbit);
-		// rgbSphere.draw();
+		rgbSphere.localRotate(localRot);
+		rgbSphere.rotateAround(origin, orbit);
+		rgbSphere.draw();
 
-		// uvSphere.localRotate(localRot);
-		// uvSphere.rotateAround(origin, orbit);
-		// uvSphere.draw();
+		uvSphere.localRotate(localRot);
+		uvSphere.rotateAround(origin, orbit);
+		uvSphere.draw();
 
 		requestAnimationFrame(main);
 	}
 	requestAnimationFrame(main);
 }
+
 
 var InitDemo = function()
 {
@@ -368,4 +202,8 @@ var InitDemo = function()
 	];
 	
 	var importer = new resourceImporter(urls, names, types, RunDemo);
+}
+
+window.onload = function() {
+	InitDemo();
 }

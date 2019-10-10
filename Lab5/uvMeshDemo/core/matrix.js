@@ -1,3 +1,6 @@
+import Vector from "./vector.js";
+
+export default
 class Matrix
 {
 	static identity()

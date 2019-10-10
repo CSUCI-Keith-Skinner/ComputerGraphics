@@ -1,3 +1,7 @@
+import Transform from "../core/transform.js";
+
+
+export default
 class Mesh extends Transform
 {
 	constructor(gl, program, positionArray, indexArray, position=new Vector(), rotation=new Quaternion(), scale=new Vector(1,1,1))

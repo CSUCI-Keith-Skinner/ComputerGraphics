@@ -1,3 +1,6 @@
+import Mesh from "./mesh.js";
+
+export default
 class UVMesh extends Mesh
 {
 
