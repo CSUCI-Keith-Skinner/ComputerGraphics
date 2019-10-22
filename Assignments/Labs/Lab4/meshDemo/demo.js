@@ -2,7 +2,8 @@ import Quaternion from './core/quaternion.js';
 import Vector from './core/vector.js';
 import Cube from './shapes.js';
 import { createProgram } from './utils/shaderUtils.js';
-import { resourceImporter } from './utils/importUtils.js'
+import { resourceImporter } from './utils/importUtils.js';
+import { mat4 } from './node_modules/gl-matrix/src/gl-matrix.js'
 
 var RunDemo = function (filemap) {
 	console.log("Initializing Demo");
@@ -131,8 +132,8 @@ var RunDemo = function (filemap) {
 var InitDemo = function () {
 	// locations of imported files
 	var urls = [
-		'/shaders/vert.rgb.glsl',
-		'/shaders/frag.rgb.glsl'
+		'shaders/vert.rgb.glsl',
+		'shaders/frag.rgb.glsl'
 	];
 
 	// imported file keys for file key-value map, respective
