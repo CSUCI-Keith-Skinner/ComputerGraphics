@@ -17,12 +17,5 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^24.9.0"
-  },
-  "jest": {
-    "testMatch": [
-      "**/__tests__/**/*.[jt]s?(x)",
-      "**/?(*.)+(spec|test).[jt]s?(x)",
-      "**/?(*.)js"
-    ]
   }
 }
