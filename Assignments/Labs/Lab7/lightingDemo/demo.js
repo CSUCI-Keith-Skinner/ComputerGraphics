@@ -49,6 +49,7 @@ var RunDemo = function (filemap)
 	var cameraPosition = [0,3,7];
 	var lookAtPosition = [0,0,0];
 	var cameraUpDirection = [0,1,0];
+	
 	mat4.lookAt(
 		viewMatrix,       // target matrix to apply values to
 		cameraPosition,   // where is the camera
