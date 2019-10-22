@@ -3,6 +3,11 @@
 1. Download [meshDemo.zip.][meshDemo]
 2. Follow the example in class to complete the vertex and fragment shaders "vert.rgb.glsl" and "frag.rgb.glsl".
 3. Follow the example in class to complete the Mesh class (skeleton provided).
+4. Independently complete the RGBMesh class (skeleton provided).
+5. At this point, you should be able to run the provided index.html and see two cubes orbiting and spinning.
+6. Create a file "shapes.js". In it create the Cube class with the following static methods (Class Cube below)
+7. Use Cube.create() to shorten demo.js; no attribute arrays should be constructed in the demo when you're done!
+8. zip up your completed demo (all files from the original zip, plus "shapes.js") and submit.
 
 ## Class Mesh
 
@@ -103,57 +108,87 @@ constructs a new RGBMesh
 - create a buffer object for the normal attribute data; store it in the field "this.normalBufferObject"
 - populate the normal buffer object with the date from normalArray (cast as a Float32Array)
 
-RGBMesh.activate (overwrites Mesh.activate)
-Description:
+### RGBMesh.activate (overwrites Mesh.activate)
+
+#### Description:
+
 prepare the WebGL context to draw this mesh
-No args!
-Tasks:
-call Mesh.activate on this RGBMesh
-Hint: Mesh is the super class of RGBMesh
-bind the colorBufferObject to WebGL's array buffer
-enable a vertex attribute array for the shader's vertex color attribute (i.e. the attribute located at "this.colorAttribLocation")
-set up the vertex attribute pointer for the vertex color attribute
-bind the normalBufferObject to WebGL's array buffer
-enable a vertex attribute array for the shader's vertex normal attribute (located at "this.normalAttribLocation")
-set up the vertex attribute pointer for the vertex color attribute
-At this point, you should be able to run the provided index.html and see two cubes orbiting and spinning.
-Create a file "shapes.js". In it create the Cube class with the following static methods:
-positionArray
-Description:
+
+#### Args:
+
+#### Tasks:
+
+- call Mesh.activate on this RGBMesh
+- Hint: Mesh is the super class of RGBMesh
+- bind the colorBufferObject to WebGL's array buffer
+- enable a vertex attribute array for the shader's vertex color attribute (i.e. the attribute located at "this.colorAttribLocation")
+- set up the vertex attribute pointer for the vertex color attribute
+- bind the normalBufferObject to WebGL's array buffer
+- enable a vertex attribute array for the shader's vertex normal attribute (located at "this.normalAttribLocation")
+- set up the vertex attribute pointer for the vertex color attribute
+
+## Class Cube
+
+### Cube.positionArray
+
+#### Description:
+
 creates and returns a position attribute array for a cube
-No Args!
-indexArray
-Description:
+
+#### Args:
+
+### Cube.indexArray
+
+#### Description:
+
 creates and returns an index array for a cube, corresponding to the output from positionArray
 don't forget, counterclockwise front faces!
-No Args!
-normalArray
-Description:
+
+#### Args:
+
+### Cube.normalArray
+
+#### Description:
+
 creates and returns a normal attribute array for a cube corresponding to the positionArray
-No Args!
-solidColorArray
-Description:
+
+#### Args:
+
+### Cube.solidColorArray
+
+#### Description:
+
 creates and returns a color attribute array for a cube where all vertices are the same color
-Args:
-color as a triple [r, g, b], all floats from 0 to 1, denoting the red, green and blue of the desired color
-Cube.create
-Description:
+
+#### Args:
+
+| Argument | Description                                                                                       |
+|:--------:|:--------------------------------------------------------------------------------------------------|
+| color    | A triple [r, g, b], all floats from 0 to 1, denoting the red, green and blue of the desired color |
+
+### Cube.create
+
+#### Description:
+
 creates and returns a cube
 for now, the cube will be an RGBMesh
 in future labs we will add extra arguments allowing for the creation of a textured mesh (UVMesh) instead!
-Args:
-gl : you know what this is by now
-program : this too
-fill : an array with 3 floats between 0 and 1, of the form [r, g, b] specifying the color of the cube
-e.g. [1.0, 0.0, 0.0] for "red"
-position : position Vector, default is default Vector
-rotation : rotation Quaternion, default is default Quaternion
-scale : scale Vector, default is Vector(1,1,1)
-Tasks:
-construct the position, index, normal and color arrays for a cube (using the other Cube class static methods)
-construct and return an RGBMesh using these arrays and the appropriate arguments above
-Use Cube.create() to shorten demo.js; no attribute arrays should be constructed in the demo when you're done!
-zip up your completed demo (all files from the original zip, plus "shapes.js") and submit.
+
+#### Args:
+
+| Argument | Description                                                                                                                   |
+|:--------:|:------------------------------------------------------------------------------------------------------------------------------|
+| gl       | you know what this is by now                                                                                                  |
+| program  | this too                                                                                                                      |
+| fill     | an array with 3 floats between 0 and 1, of the form [r, g, b] specifying the color of the cube e.g. [1.0, 0.0, 0.0] for "red" |
+| position | position Vector, default is default Vector                                                                                    |
+| rotation | rotation Quaternion, default is default Quaternion                                                                            |
+| scale    | scale Vector, default is Vector(1,1,1)                                                                                        |
+
+#### Tasks:
+- construct the position, index, normal and color arrays for a cube (using the other Cube class static methods)
+- construct and return an RGBMesh using these arrays and the appropriate arguments above
+
 You may find the following link useful; it provides explanation of which methods need to be used to initialize an object, versus the ones which need to be used every time the object is rendered: [Drawing Multiple Objects][Drawing Multiple Objects]
 
 
