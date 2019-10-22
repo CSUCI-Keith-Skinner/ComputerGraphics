@@ -65,11 +65,12 @@ class Matrix
 		]);
 	}
 
+	//helper function to the mul function
 	static p_mul(x, y, mat1, mat2) {
 		tot = 0;
-		for (int i=0; i<4; ++i) {
+		for (i=0; i<4; ++i) {
 			tot += mat1[i*4+y] * mat2[x*4+i];
-		}
+		} 
 		return tot;	
 	}
 
@@ -78,24 +79,28 @@ class Matrix
 	static mul(mat1, mat2)
 	{
 		result = [];
-		for (int x=0; x<4; ++x) {
-			for (int y=0; y<4; ++y) {
+		for (x=0; x<4; ++x) {
+			for (y=0; y<4; ++y) {
 				result.push(p_mul(x, y, mat1, mat2));
 			}
 		}
+		return result;
 	}
 
 	// given an array or list of matrices, multiplies them all (in order) and returns the result
 	static prod(mats)
 	{
-		
+		intermediate = Matrix.identity();
+		for (mat in mats) {
+			intermediate = mul(intermediate, mat);
+		}
 	}
 
 	// given a position (vector), rotation (quaternion) and scale (vector)
 	// returns the corresponding world matrix
 	static world(position, rotation, scale)
 	{
-		
+		return this.position()
 	}
 
 	// THE MATRICES BELOW WILL BE DONE IN THE 2ND HALF OF THE SEMESTER
