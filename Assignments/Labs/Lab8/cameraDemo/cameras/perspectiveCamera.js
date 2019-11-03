@@ -12,10 +12,15 @@ class PerspectiveCamera extends Transform
 
 		for (var i = 0; i < programArray.length; i++)
 		{
-			// TODO	
+			// TODO: done
 			// tell WebGL context to use shader program at index i of the programArray field.
 			// push the location of "cam.mProjView" from that program into the "this.mProjViewAttribLocations" array
 			// push the location of "cam.position" in that shader into the "this.positionAttribLocations" array
+			this.gl.useProgram(programArray[i]);
+			this.mProjViewAttribLocations.push(
+				this.gl.getUniformLocation(programArray[i], 'cam.mProjView'));
+			this.positionAttribLocations.push(
+				this.gl.getUniformLocation(programArray[i], 'cam.position'));
 		}
 
 		// Position updates for each shader
@@ -44,38 +49,51 @@ class PerspectiveCamera extends Transform
 
 	setFov(fov) // FoV = "Field of View" i.e. angle from top of vision to bottom
 	{
-		// TODO
+		// TODO: done
 		// set the "this.fov" field to the input value
 		// set "this.needsProjectionUpdate" to true
 		// NOTE (unrelated to what needs to be done in this method): fov is in radians
+		this.fov = fov;
+		this.needsProjectionUpdate = true;
 	}
 
 	setAspect(ratio)
 	{
-		// TODO
+		// TODO: done
 		// set "this.aspect" field to input
 		// set "this.needsProjectionUpdate" to true
+		this.aspect = ratio;
+		this.needsProjectionUpdate = true;
 	}
 
 	setNearClip(distance)
 	{
-		// TODO
+		// TODO: done
 		// set "this.near" to input
 		// set "this.needsProjectionUpdate" to true
+		this.near = distance;
+		this.needsProjectionUpdate = true;
 	}
 
 	setFarClip(distance)
 	{
-		// TODO
+		// TODO: done
 		// set "this.far" to input
 		// set "this.needsProjectionUpdate" to true
+		this.far = distance;
+		this.needsProjectionUpdate = true;
 	}
 
 	setPerspective(fov, aspect, near, far)
 	{
-		// TODO
+		// TODO: done
 		// set all 4 perspective variables (like in above 4 methods)
 		// set "this.needsProjectionUpdate" to true
+		this.fov = fov;
+		this.aspect = aspect;
+		this.near = near;
+		this.far = far;
+		this.needsProjectionUpdate = true;
 	}
 
 	// converting from local directions to quaternion is a huge pain, so I did this one.
@@ -144,29 +162,36 @@ class PerspectiveCamera extends Transform
 
 	updateLocalDirections()
 	{
-		// TODO
+		// TODO: done
 		// update "this.forward", "this.localUp", and "this.localRight" to match "this.rotation"
 		// see Constructor
+		this.localRight = new Vector(-1, 0, 0).rotate(this.rotation, false);
+		this.localUp = new Vector(0,1,0).rotate(this.rotation, false);
+		this.forward = new Vector(0,0,1).rotate(this.rotation, false);
 	}
 
 	updateViewMatrix()
 	{
-		// TODO
+		// TODO: done
 		// update "this.mView" to reflect the position, forward direction, and local up direction
 			// how do we get the "target" location from the camera position and it's forward vector?
 		// set "this.needsUpdate" to false (it is set to "true" by the transform when we move or rotate)
+		this.mView = Matrix.view(this.position, this.forward, this.localUp);
+		this.needsUpdate = false;
 	}
 
 	updateProjectionMatrix()
 	{
-		// TODO
+		// TODO: done
 		// update the projection matrix with the FoV, aspect, near, far field variables
 		// set "this.needsProjectionUpdate" to false
+		this.mProj = Matrix.perspective(this.fov, this.aspect, this.near, this.far);
+		this.needsProjectionUpdate = false;
 	}
 
 	updateProjViewMatrix()
 	{
-		// TODO
+		// TODO: done
 		// set "this.mProjView" to the product of the projection and view matrices (this.mProj and this.mView)
 		// loop through "this.programs"; in each iteration:
 			// tell the WebGL context to use the program at the current index
@@ -174,16 +199,25 @@ class PerspectiveCamera extends Transform
 				// something like "this.gl.uniformMatrix4fv( your location, this.gl.FALSE, mProjView matrix );"
 				// here "this.gl.FALSE" means "don't transpose it before inputting"
 				// use the locations you stored in the Constructor
+		this.mProjView = Matrix.mul(this.mProj, this.mView);
+		for (var i=0; i<this.programs.length; ++i) {
+			this.gl.useProgram(this.programs[i]);
+			this.gl.uniformMatrix4fv(this.mProjViewAttribLocations[i], this.gl.FALSE, this.mProjView);
+		}
 	}
 
 	updatePositions()
 	{
-		// TODO
+		// TODO: done
 		// iterate through "this.programs"
 			// tell the WebGL context to use the program at the current index
 			// update each program's "cam.position" with "this.position.toArray()"
 			// use the locations you stored in the Constructor
 			// what WebGL method do we use to pass in 3 floats as a single array / vector?
+		for (var i=0; i<this.programs.length; ++i) {
+			this.gl.useProgram(this.programs[i]);
+			this.gl.uniform3fv(this.positionAttribLocations[i], this.position.toArray());
+		}
 	}
 
 	update()
