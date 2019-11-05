@@ -104,69 +104,45 @@ class Matrix
 	// TODO: done
 	static view(eye, target, up)
 	{
-		//Shamelessly taken from:
-		//  https://stackoverflow.com/questions/6030933/get-eye-target-and-up-vectors-from-view-matrix
-		//LookAt(Eye, At, Up);
-		
-		var zaxis = target.subtract(eye, false);
-		zaxis.normalize();
-		var xaxis = Vector.cross(up, zaxis);
-		xaxis.normalize();
-		var yaxis = Vector.cross(zaxis, xaxis);
+		var Z = eye.subtract(target, false);
+		Z.normalize();
+		var X = Vector.cross(up, Z);
+		X.normalize();
+		var Y = Vector.cross(Z, X);
+		Y.normalize();
 
 		return new Float32Array([
-			xaxis.x,   xaxis.y,   xaxis.z,   -Vector.dot(xaxis, eye),
-			yaxis.x,   yaxis.y,   yaxis.z,   -Vector.dot(yaxis, eye),
-			zaxis.x,   zaxis.y,   zaxis.z,   -Vector.dot(zaxis, eye),
-			0, 0, 0, 1
+			X.x,                 Y.x,                 Z.x,                   0,
+			X.y,                 Y.y,                 Z.y,                   0,
+			X.z,                 Y.z,                 Z.z,                   0,
+			-Vector.dot(X, eye), -Vector.dot(Y, eye), -Vector.dot(Z, eye),   1
 		]);
 	}
 
 	// TODO: done
 	static perspective(viewRadians=Math.PI/4, aspect=1, near=0.01, far=1000.0)
 	{
-		// Shamelessly stolen from:
-		//	https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/opengl-perspective-projection-matrix
-		//	http://learnwebgl.brown37.net/08_projections/create_perspective/create_perspective.html
-
-		var top = near * Math.tan(viewRadians/2);
-		var bottom = -top;
-		var right = top * aspect;
-		var left = -right;
-		
-		var tmb = top-bottom;
-		var fmn = far-near;
-		var rml = right-left;
-		var rpl = right+left;
-		var tpb = top+bottom;
-		var fpn = far+near;
-
+		var f = 1 / Math.tan(viewRadians/2);
+		var n = 1 / (near - far);
 		return new Float32Array([
-			2*near/rml, 0,          0,                0,
-			0,          2*near/tmb, 0,                0,
-			rpl/rml,    tpb/tmb,    -fpn/fmn,        -1,
-			0,          0,          -2*far*near/fmn,  0
+			f/aspect, 0, 0,             0,
+			0,        f, 0,             0,
+			0,        0, (near+far)*n,  -1,
+			0,        0, 2*near*far*n,  0
 		]);
 	}
 
 	// TODO: done
 	static orthographic(left=-2, right=2, bottom=-2, top=2, near=0.1, far=1000.0)
 	{
-		// Shamelessly stolen from:
-		//  https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/orthographic-projection-matrix
-
-		var tmb = top-bottom;
-		var fmn = far-near;
-		var rml = right-left;
-		var rpl = right+left;
-		var tpb = top+bottom;
-		var fpn = far+near;
-
+		var lr = 1/(left-right);
+		var bt = 1/(bottom-top);
+		var nf = 1/(near-far);
 		return new Float32Array([
-			2/rml,     0,         0,         0,
-			0,         2/tmb,     0,         0,
-			0,         0,         -2/fmn,    0,
-			-rpl/rml,  -tpb/tmb,  -fpn/fmn,  1
+			-2*lr,           0,               0,             0,
+			0,               -2*bt,           0,             0,
+			0,               0,               2*nf,          0,
+			(left+right)*lr, (top+bottom)*bt, (near+far)*nf, 1
 		]);
 	}
 }
